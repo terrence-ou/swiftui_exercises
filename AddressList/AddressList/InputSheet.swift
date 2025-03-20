@@ -7,16 +7,6 @@
 
 import SwiftUI
 
-struct Address {
-    var nickname: String = ""
-    var line: String = ""
-    var city: String = ""
-    var state: String = ""
-    var country: String = ""
-    var zipcode: String = ""
-    
-}
-
 struct InputSheet: View {
     
     @State var address: Address = Address()
@@ -25,7 +15,7 @@ struct InputSheet: View {
         VStack(spacing: 10) {
             InputWithLabel(label: "Nickname",
                            placeholder: "e.g. Home",
-                           text: $address.line)
+                           text: $address.nickname)
             InputWithLabel(label: "Address",
                            placeholder: "e.g. 123 Main Street",
                            text: $address.line)
@@ -46,7 +36,17 @@ struct InputSheet: View {
                                placeholder: "",
                                text: $address.zipcode)
             }
+            
         }
+        Button{
+            
+        } label: {
+            Text("Add Address")
+                .padding(.horizontal, 10)
+                .padding(.vertical, 5)
+        }
+        .buttonStyle(.borderedProminent)
+        .padding(.top, 16)
     }
 }
 
@@ -66,7 +66,7 @@ struct InputWithLabel: View {
                 .font(.subheadline)
             TextField(placeholder, text: $text)
                 .padding(.horizontal, 10)
-                .padding(.vertical, 4)
+                .padding(.vertical, 6)
                 .background(RoundedRectangle(cornerRadius: 5).fill(.gray).opacity(0.1))
         }
     }
