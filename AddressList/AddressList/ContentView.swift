@@ -11,10 +11,20 @@ struct Address {
     var nickname: String = ""
     var line: String = ""
     var city: String = ""
-    var state: String = ""
+    var state: USState = .alabama
     var country: String = ""
     var zipcode: String = ""
     
+}
+
+enum USState: String, CaseIterable, Identifiable {
+    case alabama = "Alabama"
+    case alaska = "Alaska"
+    case arizona = "Arizona"
+    case arkansas = "Arkansas"
+    case california = "California"
+    case colorado = "Colorado"
+    var id: String { self.rawValue } // Required for Identifiable
 }
 
 

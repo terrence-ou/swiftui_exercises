@@ -23,9 +23,8 @@ struct InputSheet: View {
                 InputWithLabel(label: "City",
                                placeholder: "",
                                text: $address.city)
-                InputWithLabel(label: "State",
-                               placeholder: "",
-                               text: $address.state)
+                
+                PickerWithLabel(label: "State", state: $address.state)
             }
             
             HStack {
@@ -34,7 +33,9 @@ struct InputSheet: View {
                                text: $address.country)
                 InputWithLabel(label: "Zip Code",
                                placeholder: "",
-                               text: $address.zipcode)
+                               keyboardType: .numberPad,
+                               text: $address.zipcode
+                )
             }
             
         }
@@ -58,6 +59,7 @@ struct InputWithLabel: View {
     
     let label: String
     let placeholder: String
+    var keyboardType: UIKeyboardType = .default
     @Binding var text: String
     
     var body: some View {
@@ -65,9 +67,35 @@ struct InputWithLabel: View {
             Text(label)
                 .font(.subheadline)
             TextField(placeholder, text: $text)
+                .keyboardType(keyboardType)
                 .padding(.horizontal, 10)
                 .padding(.vertical, 6)
                 .background(RoundedRectangle(cornerRadius: 5).fill(.gray).opacity(0.1))
         }
+        .frame(maxWidth:.infinity)
+    }
+}
+
+struct PickerWithLabel: View {
+    let label: String
+    @Binding var state: USState
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(label)
+                .font(.subheadline)
+            Picker("Select a State", selection: $state) {
+                ForEach(USState.allCases, id:\.rawValue) { state in
+                    Text(state.rawValue)
+                        .tag(state)
+                }
+            }
+            .accentColor(.black)
+            .opacity(0.7)
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal, 10)
+            .background(RoundedRectangle(cornerRadius: 5).fill(.gray).opacity(0.1))
+            .pickerStyle(.menu)
+        }
+        .frame(maxWidth:.infinity)
     }
 }
