@@ -12,7 +12,7 @@ struct Address {
     var line: String = ""
     var city: String = ""
     var state: USState = .alabama
-    var country: String = ""
+    var country: String = "United States"
     var zipcode: String = ""
     
 }
@@ -74,14 +74,14 @@ enum USState: String, CaseIterable, Identifiable {
 
 struct ContentView: View {
     @State private var addresses: [Address] = [
-        Address(nickname: "Home1", line: "123 Main St", city: "Boston", state: .massachusetts, country: "United States", zipcode: "02111"),
-        Address(nickname: "Home2", line: "285 Hancock St", city: "Quincy", state: .massachusetts, country: "United States", zipcode: "02111")
+        Address(nickname: "Home", line: "123 Main St", city: "Boston", state: .massachusetts, country: "United States", zipcode: "02135"),
+        Address(nickname: "Office", line: "456 Hancock St", city: "Quincy", state: .massachusetts, country: "United States", zipcode: "02111")
     ]
     
     var body: some View {
         VStack {
             Text("Address Book")
-                .font(.title)
+                .font(.headline)
                 .fontWeight(.semibold)
             ListDisplay(addresses: $addresses)
             Spacer()

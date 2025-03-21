@@ -20,9 +20,10 @@ struct ListDisplay: View {
         } else {
             List {
                 ForEach(addresses, id:\.nickname) {address in
-                    Text(address.line)
+                    AddressCard(address: address)
                 }
             }
+            .padding(.vertical, 6)
             .scrollContentBackground(.hidden)
             .background(
                 RoundedRectangle(cornerRadius: 20)
@@ -37,3 +38,23 @@ struct ListDisplay: View {
 //#Preview {
 //    ListDisplay()
 //}
+
+struct AddressCard: View {
+    
+    let address: Address
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(address.nickname)
+                .font(.headline)
+                .fontWeight(.semibold)
+            Text(address.line)
+                .font(.subheadline)
+            Text("\(address.city), \(address.state.rawValue) \(address.zipcode), \(address.country)")
+                .font(.caption)
+                .foregroundStyle(.gray)
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 6)
+    }
+}
+

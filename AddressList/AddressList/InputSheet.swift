@@ -39,7 +39,7 @@ struct InputSheet: View {
                            isValid: $validation.line)
             HStack {
                 InputWithLabel(label: "City",
-                               placeholder: "",
+                               placeholder: "e.g. Boston",
                                text: $address.city, isValid: $validation.city)
                 
                 MenuWithLabel(label: "State", state: $address.state)
@@ -53,7 +53,7 @@ struct InputSheet: View {
                                isValid: $validation.country
                 )
                 InputWithLabel(label: "Zip Code",
-                               placeholder: "",
+                               placeholder: "e.g. 20111",
                                text: $address.zipcode,
                                isValid: $validation.zipcode
                 )
@@ -70,9 +70,17 @@ struct InputSheet: View {
                 currAddress.nickname == address.nickname
             })) {
                 validation.nickname = false
-            } else {
-                addresses.append(address)
+                return
             }
+            
+            if (!address.zipcode.allSatisfy({ $0.isNumber })) {
+                validation.zipcode = false
+                return
+            }
+            
+            addresses.append(address)
+            address = Address()
+            
             
         } label: {
             Text("Add Address")
@@ -145,7 +153,7 @@ struct MenuWithLabel: View {
             .padding(.vertical, 6)
             .frame(maxWidth: .infinity)
             .background(RoundedRectangle(cornerRadius: 5).fill(.gray).opacity(0.1).frame(height: 35))
-
+            
         }
         .frame(maxWidth:.infinity)
     }
